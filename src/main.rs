@@ -6,25 +6,26 @@ use std::io;
 
 fn main() {
     let root = loader::load_trie();
-    let mut word_hunt_solver = solver::Solver::new(root, 4, 4);
+    const GRID_SIZE: usize = 5;
+    let mut word_hunt_solver = solver::Solver::new(root, GRID_SIZE, GRID_SIZE);
 
     println!("Welcome to the Word Hunt solver.\n");
 
     let mut input = String::new();
 
     loop {
-        let mut game_board = vec![vec![' '; 4]; 4];
+        let mut game_board = vec![vec![' '; GRID_SIZE]; GRID_SIZE];
 
-        println!("Enter the letters for the 4x4 game board:");
+        println!("Enter the letters for the {}x{} game board:", GRID_SIZE, GRID_SIZE);
 
-        for i in 0..4 {
-            println!("Enter row {} (4 characters):", i + 1);
+        for i in 0..GRID_SIZE {
+            println!("Enter row {} ({} characters):", i + 1, GRID_SIZE);
             let mut row_input = String::new();
             io::stdin().read_line(&mut row_input).expect("Failed to read input");
             let row_input = row_input.trim();
 
-            if row_input.len() != 4 {
-                println!("Each row must have exactly 4 characters. Please try again.");
+            if row_input.len() != GRID_SIZE {
+                println!("Each row must have exactly {} characters. Please try again.", GRID_SIZE);
                 return;
             }
 
